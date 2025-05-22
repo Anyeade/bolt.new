@@ -48,12 +48,14 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
         contentType: 'text/plain; charset=utf-8',
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    console.error('Chat API error:', error);
 
-    throw new Response(null, {
+    return new Response(JSON.stringify({ error: error.message || 'Internal Server Error' }), {
       status: 500,
-      statusText: 'Internal Server Error',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   }
 }
