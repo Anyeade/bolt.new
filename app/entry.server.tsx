@@ -51,6 +51,8 @@ export default async function handleRequest(
           })
           .catch((error) => {
             controller.error(error);
+            controller.error(error);
+            controller.close();
             readable.cancel();
           });
       }
